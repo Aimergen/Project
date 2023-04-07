@@ -1,19 +1,29 @@
 import { MovieCard } from "@/components/movie/MovieCard";
 import { IMovie } from "@/interfaces/movie";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Home(): JSX.Element {
-  const [movies, setMovies] = useState<IMovie[]>([]);
+export async function getStaticProps() {
+  const response = await fetch(`http://localhost:7070/api/movies?limit=24`);
+  const data = await response.json();
+  return {
+    props: { data },
+  };
+}
+
+export default function Home({ data }: { data: IMovie[] }): JSX.Element {
+  const [movies, setMovies] = useState<IMovie[]>(data);
 
   const [ordering, setOrdering] = useState<string>("");
 
   useEffect(() => {
-    fetch(`http://localhost:7070/api/movies?limit=12&ordering=${ordering}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovies(data);
-      });
+    if (ordering !== "") {
+      fetch(`http://localhost:7070/api/movies?limit=24&ordering=${ordering}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setMovies(data);
+        });
+    }
   }, [ordering]);
 
   return (
@@ -26,7 +36,7 @@ export default function Home(): JSX.Element {
       </Head>
 
       <div className="bg-slate-100 min-h-screen">
-        <div className="container mx-auto">
+        <div className="container">
           <div className="bg-white">
             <select
               value={ordering}
