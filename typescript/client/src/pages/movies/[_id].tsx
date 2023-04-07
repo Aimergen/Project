@@ -1,6 +1,6 @@
 import { IMovie } from "@/interfaces/movie";
 import { GetStaticPropsContext } from "next";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 export const getStaticPaths = async () => {
   const response = await fetch("http://localhost:7070/api/movies/ids");
@@ -29,10 +29,7 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ data }) => {
-  const [movie, setMovie] = useState<IMovie | undefined>(data);
-
-  if (!movie) return <h1>Movie not found</h1>;
-
+  const movie = data;
   return <h1>{movie.title}</h1>;
 };
 
