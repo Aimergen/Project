@@ -8,6 +8,7 @@ import useLoader from "@/hooks/useLoader";
 import { Select } from "@/components/ui/Select";
 import { MovieCardSkelton } from "@/components/movie/MovieCardSkeleton";
 import { nanoid } from "nanoid";
+import { useQuery } from "@/hooks/useQuery";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { query } = context;
@@ -30,6 +31,8 @@ export default function Home({ data }: { data: IMovie[] }): JSX.Element {
 
   const loading = useLoader();
 
+  const { addQuery } = useQuery();
+
   return (
     <>
       <Head>
@@ -51,12 +54,24 @@ export default function Home({ data }: { data: IMovie[] }): JSX.Element {
                 { value: "titleDesc", label: "Z-A" },
               ]}
               onChange={(e) => {
-                router.push({
-                  pathname: "/",
-                  query: { ordering: e.target.value },
-                });
+                addQuery({ ordering: e.target.value });
               }}
               value={ordering + ""}
+              itemValue={"value"}
+              itemLabel={"label"}
+            />
+
+            <Select
+              items={[
+                { value: "6", label: "6" },
+                { value: "12", label: "12" },
+                { value: "24", label: "24" },
+                { value: "48", label: "48" },
+              ]}
+              onChange={(e) => {
+                addQuery({ limit: e.target.value });
+              }}
+              value={limit + ""}
               itemValue={"value"}
               itemLabel={"label"}
             />
