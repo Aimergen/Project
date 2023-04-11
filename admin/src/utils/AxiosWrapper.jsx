@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 
 export const AxiosWrapper = ({ children }) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token") || "";
+  const token = localStorage.getItem("token");
 
-  axios.defaults.baseURL = process.env.REACT_APP_CALLBACK_URL || "";
+  axios.defaults.baseURL = process.env.PUBLIC_API_URL || "";
 
   axios.interceptors.request.use(
     (config) => {

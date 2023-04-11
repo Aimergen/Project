@@ -81,7 +81,7 @@ export default function Home({ data }: { data: IMovie[] }): JSX.Element {
                 ? movies.map((movie) => (
                     <MovieCard movie={movie} key={movie._id} />
                   ))
-                : Array.from(Array(limit), () => (
+                : Array.from(Array(Number(limit)), () => (
                     <MovieCardSkelton key={nanoid()} />
                   ))}
             </div>

@@ -7,13 +7,14 @@ import { OrdersScreen } from "./screens/OrdersScreen";
 
 function App() {
   const { currentUser } = useCurrentUser();
+  console.log("currentUser", currentUser);
   if (!currentUser) {
     return (
       <Routes>
-        <Route path="*" element={<NotFoundScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/orders" element={<OrdersScreen />} />
+        <Route path="*" element={<NotFoundScreen />} />
       </Routes>
     );
   }
