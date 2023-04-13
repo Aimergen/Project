@@ -1,4 +1,4 @@
-import { cutTextToLength, slugify } from "../index";
+import { cutTextToLength, sluggify } from "../index";
 
 const str = "The quick brown fox jumps over the lazy dog.";
 
@@ -14,11 +14,12 @@ describe("cutTextToLength", () => {
 
 const str2 = "Hello World!";
 const str3 = "Өнөөдөр үнээгээ саана";
+
 describe("sluggify", () => {
   it("should sluggify text", () => {
-    expect(slugify(str2)).toBe("hello-world");
+    expect(sluggify(str2)).toBe("hello-world");
   });
   it("should sluggify extended crylic", () => {
-    expect(slugify(str3)).toBe("өнөөдөр-үнээгээ-саана");
+    expect(sluggify(str3)).toBe("unuudur-uneegee-saana");
   });
 });
